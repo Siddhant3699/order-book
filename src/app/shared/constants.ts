@@ -1,3 +1,9 @@
 export const URLs = {
-  WEBSOCKET: 'wss://api-pub.bitfinex.com/ws/2',
+  SYMBOLS: 'https://api-pub.bitfinex.com/v2/tickers?symbols=ALL',
+  BOOK: 'wss://api-pub.bitfinex.com/ws/2',
+};
+
+export const COLUMNS = {
+  BIDS: ['count', 'amount', 'total', 'price'],
+  ASKS: ['price', 'total', 'amount', 'count'],
 };

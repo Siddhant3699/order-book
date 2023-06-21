@@ -25,7 +25,7 @@ export class WebsocketService {
   private connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(URLs.WEBSOCKET);
+        this.ws = new WebSocket(URLs.BOOK);
         resolve();
       } catch (error) {
         reject(error);

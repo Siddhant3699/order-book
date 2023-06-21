@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OrderBookService } from './services/order-book.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +6,7 @@ import { OrderBookService } from './services/order-book.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'order-book';
+  title = 'OHLC Order Book';
 
-  constructor(private orderBookService: OrderBookService) {}
-
-  public ngOnInit() {
-    this.orderBookService
-      .getOrderBookData()
-      .subscribe((data) => console.log(data));
-  }
+  constructor() {}
 }

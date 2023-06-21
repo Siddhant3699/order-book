@@ -3,3 +3,14 @@ export type Message = {
   channel: string;
   symbol: string;
 };
+
+export type OrderBook = {
+  price: number;
+  count: number;
+  amount: number;
+  total?: number;
+};
+
+export type Tickers = {
+  symbol: string;
+};

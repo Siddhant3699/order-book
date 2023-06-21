@@ -1,0 +1,13 @@
+<div class="spinner" *ngIf="loading; else tables">
+  <mat-spinner></mat-spinner>
+</div>
+<ng-template #tables>
+  <div class="order-book">
+    <div class="bid-table">
+      <app-bid [data]="bidData"></app-bid>
+    </div>
+    <div class="ask-table">
+      <app-ask [data]="askData"></app-ask>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,36 @@
+<table
+  mat-table
+  [dataSource]="
+    data
+      | orderBookObjectBuilder
+      | orderByPriceLevel : -1
+      | totalCalculator
+      | limitRows
+  "
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="count">
+    <th mat-header-cell *matHeaderCellDef>COUNT</th>
+    <td mat-cell *matCellDef="let data">{{ data.count }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>AMOUNT</th>
+    <td mat-cell *matCellDef="let data">
+      {{ data.amount | number : "1.4-4" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef>TOTAL</th>
+    <td mat-cell *matCellDef="let data">{{ data.total | number : "1.4-4" }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>PRICE</th>
+    <td mat-cell *matCellDef="let data">{{ data.price }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
