@@ -1,5 +1,4 @@
 export const URLs = {
-  SYMBOLS: 'https://api-pub.bitfinex.com/v2/tickers?symbols=ALL',
   BOOK: 'wss://api-pub.bitfinex.com/ws/2',
 };
 
