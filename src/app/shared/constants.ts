@@ -7,3 +7,9 @@ export const COLUMNS = {
   BIDS: ['count', 'amount', 'total', 'price'],
   ASKS: ['price', 'total', 'amount', 'count'],
 };
+
+export const SERVER_MESSAGE = {
+  event: 'subscribe',
+  channel: 'book',
+  symbol: 'tBTCUSD',
+};

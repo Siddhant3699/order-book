@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { AsksFilterPipe } from 'src/app/pipes/asks-filter.pipe';
 import { BidsFilterPipe } from 'src/app/pipes/bids-filter.pipe';
 import { OrderBookService } from 'src/app/services/order-book.service';
-import { SymbolsService } from 'src/app/services/symbols.service';
 
 @Component({
   selector: 'app-order-book',
@@ -21,7 +20,6 @@ export class OrderBookComponent implements OnInit, OnDestroy {
 
   constructor(
     private orderBookService: OrderBookService,
-    private symbolsService: SymbolsService,
     private bidsFilterPipe: BidsFilterPipe,
     private asksFilterPipe: AsksFilterPipe
   ) {
@@ -32,18 +30,10 @@ export class OrderBookComponent implements OnInit, OnDestroy {
   }
 
   public async ngOnInit(): Promise<void> {
-    await this.initializeSymbols();
-    this.initializeOrderBookData().then(() => {
-      this.initializeBidData();
-      this.initializeAskData();
-      this.loading = false;
-    });
-  }
-
-  private async initializeSymbols(): Promise<void> {
-    this.symbolsService
-      .getSymbols()
-      .subscribe((symbols: string[]) => (this.symbols = symbols));
+    await this.initializeOrderBookData();
+    this.initializeBidData();
+    this.initializeAskData();
+    this.loading = false;
   }
 
   private initializeOrderBookData(): Promise<void> {

@@ -10,7 +10,3 @@ export type OrderBook = {
   amount: number;
   total?: number;
 };
-
-export type Tickers = {
-  symbol: string;
-};

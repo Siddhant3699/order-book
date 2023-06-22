@@ -1,18 +1,21 @@
 .spinner,
 .order-book {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .bid-table {
-  padding: 10px 10px 10px 0px;
+  padding: 0px 5px 0px 10px;
+  flex-grow: 4;
 }
 
 .ask-table {
-  padding: 10px 0px 10px 10px;
+  padding: 0px 10px 0px 5px;
+  flex-grow: 4;
 }
 
-.symbols {
-  display: block;
+h2 {
+  text-align: center;
+  text-shadow: 2px 2px 8px #ff0000;
 }

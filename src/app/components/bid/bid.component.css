@@ -1,6 +1,11 @@
+.mat-mdc-header-cell {
+  font-weight: bold;
+}
+
 .mat-mdc-cell {
   color: green;
   text-align: center;
+  font-weight: bold;
 }
 
 .mat-mdc-header-cell {

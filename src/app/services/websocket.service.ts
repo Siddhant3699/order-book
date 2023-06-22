@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Message } from '../shared/models';
 import { Subject } from 'rxjs';
-import { URLs } from '../shared/constants';
+import { SERVER_MESSAGE, URLs } from '../shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,6 @@ import { URLs } from '../shared/constants';
 export class WebsocketService {
   private ws: WebSocket;
   private isConnected: boolean;
-  public sendMessage: Subject<Message> = new Subject<Message>();
   public receiveMessage: Subject<string> = new Subject<string>();
 
   constructor() {
@@ -36,13 +34,7 @@ export class WebsocketService {
   private configureEventListeners(): void {
     this.ws.addEventListener('open', () => {
       if (this.canSendMessage()) {
-        this.ws.send(
-          JSON.stringify({
-            event: 'subscribe',
-            channel: 'book',
-            symbol: 'tBTCUSD',
-          })
-        );
+        this.ws.send(JSON.stringify(SERVER_MESSAGE));
       }
     });
     this.ws.addEventListener('message', (event: MessageEvent<string>) => {
