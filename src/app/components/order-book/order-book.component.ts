@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AsksFilterPipe } from 'src/app/pipes/asks-filter.pipe';
-import { BidsFilterPipe } from 'src/app/pipes/bids-filter.pipe';
+import { DataFilterPipe } from 'src/app/pipes/data-filter.pipe';
 import { OrderBookService } from 'src/app/services/order-book.service';
+import { FilterType } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-order-book',
@@ -20,8 +20,7 @@ export class OrderBookComponent implements OnInit, OnDestroy {
 
   constructor(
     private orderBookService: OrderBookService,
-    private bidsFilterPipe: BidsFilterPipe,
-    private asksFilterPipe: AsksFilterPipe
+    private dataFilterPipe: DataFilterPipe
   ) {
     this.loading = true;
     this.orderBookData = [];
@@ -31,8 +30,8 @@ export class OrderBookComponent implements OnInit, OnDestroy {
 
   public async ngOnInit(): Promise<void> {
     await this.initializeOrderBookData();
-    this.initializeBidData();
-    this.initializeAskData();
+    await this.initializeBidData();
+    await this.initializeAskData();
     this.loading = false;
   }
 
@@ -46,6 +45,7 @@ export class OrderBookComponent implements OnInit, OnDestroy {
             resolve();
           } else {
             this.updateTradingBook(data);
+            resolve();
           }
         });
     });
@@ -55,12 +55,12 @@ export class OrderBookComponent implements OnInit, OnDestroy {
     return data[0].constructor === Array;
   }
 
-  private initializeBidData(): void {
-    this.bidData = this.bidsFilterPipe.transform(this.orderBookData);
+  private async initializeBidData(): Promise<void> {
+    this.bidData = this.dataFilterPipe.transform(this.orderBookData, FilterType.Bids);
   }
 
-  private initializeAskData(): void {
-    this.askData = this.asksFilterPipe.transform(this.orderBookData);
+  private async initializeAskData(): Promise<void> {
+    this.askData = this.dataFilterPipe.transform(this.orderBookData, FilterType.Asks);
   }
 
   private updateTradingBook(data: number[]): void {
@@ -83,7 +83,7 @@ export class OrderBookComponent implements OnInit, OnDestroy {
   }
 
   private addOrUpdateBids(data: number[], price: number): void {
-    const index = this.getItemIndex(this.bidData, price);
+    const index = this.bidData.findIndex((element: number[]) => element[0] === price);
     if (index === -1) {
       this.bidData.push(data);
     } else {
@@ -92,17 +92,8 @@ export class OrderBookComponent implements OnInit, OnDestroy {
     this.bidData = [...this.bidData];
   }
 
-  private getItemIndex(data: Array<number[]>, price: number): number {
-    for (let index = 0; index < data.length; index++) {
-      if (data[index][0] === price) {
-        return index;
-      }
-    }
-    return -1;
-  }
-
   private addOrUpdateAsks(data: number[], price: number): void {
-    const index = this.getItemIndex(this.askData, price);
+    const index = this.askData.findIndex((element: number[]) => element[0] === price);
     if (index === -1) {
       this.askData.push(data);
     } else {
@@ -112,12 +103,12 @@ export class OrderBookComponent implements OnInit, OnDestroy {
   }
 
   private removeFromBids(price: number): void {
-    const index = this.getItemIndex(this.bidData, price);
+    const index = this.bidData.findIndex((element: number[]) => element[0] === price);
     this.bidData.splice(index, 1);
   }
 
   private removeFromAsks(price: number): void {
-    const index = this.getItemIndex(this.askData, price);
+    const index = this.askData.findIndex((element: number[]) => element[0] === price);
     this.askData.splice(index, 1);
   }
 

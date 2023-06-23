@@ -12,3 +12,8 @@ export const SERVER_MESSAGE = {
   channel: 'book',
   symbol: 'tBTCUSD',
 };
+
+export enum FilterType {
+  Bids = 'Bids',
+  Asks = 'Asks',
+}

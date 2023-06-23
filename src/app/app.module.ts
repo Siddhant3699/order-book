@@ -9,13 +9,11 @@ import { OrderBookComponent } from './components/order-book/order-book.component
 import { BidComponent } from './components/bid/bid.component';
 import { AskComponent } from './components/ask/ask.component';
 
-import { BidsFilterPipe } from './pipes/bids-filter.pipe';
-import { AsksFilterPipe } from './pipes/asks-filter.pipe';
 import { OrderBookObjectBuilderPipe } from './pipes/order-book-object-builder.pipe';
 import { TotalCalculatorPipe } from './pipes/total-calculator.pipe';
 import { AbsoluteValuePipe } from './pipes/absolute-value.pipe';
 import { OrderByPriceLevelPipe } from './pipes/order-by-price-level.pipe';
-import { LimitRowsPipe } from './pipes/limit-rows.pipe';
+import { DataFilterPipe } from './pipes/data-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +25,6 @@ import { LimitRowsPipe } from './pipes/limit-rows.pipe';
     TotalCalculatorPipe,
     AbsoluteValuePipe,
     OrderByPriceLevelPipe,
-    LimitRowsPipe,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +32,7 @@ import { LimitRowsPipe } from './pipes/limit-rows.pipe';
     MaterialModule,
     HttpClientModule,
   ],
-  providers: [BidsFilterPipe, AsksFilterPipe],
+  providers: [DataFilterPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
